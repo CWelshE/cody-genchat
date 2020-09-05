@@ -1,0 +1,8 @@
+/* Global styles - only put things in here if they can't be handled by
+ * styling a React component; e.g., <html> and <body>.
+ */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}

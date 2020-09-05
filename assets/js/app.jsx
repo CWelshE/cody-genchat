@@ -1,31 +1,29 @@
 // Primary entrypoint for the application.
-import "phoenix_html"
+import "phoenix_html";
+import "../css/global.css";
 
 // React deps
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
 // Styling deps
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from "@emotion/core";
 
+const rootBase = 0;
+const gridTemplates = "repeat(3, 1fr)";
 const rootApp = (
-  <div 
+  <div
     css={css`
-        margin: 0;
-        padding: 0;
-        display: grid;
-        height: 100vh;
-        width: 100vw;
-        grid-template-columns: repeat(1fr, 3);
-        grid-template-rows: repeat(1fr, 3);
-        font-size: 14px;
-        background-color: #ffffff;
+      margin: ${rootBase};
+      padding: ${rootBase};
+      display: grid;
+      grid-template-columns: ${gridTemplates};
+      grid-template-rows: ${gridTemplates};
+      font-size: 14px;
+      background-color: #ffffff;
+      border: 10px solid red;
     `}
-  >
-  </div>
+  />
 );
 
-ReactDOM.render(
-  rootApp,
-  document.getElementsByClassName("root")[0]
-)
+ReactDOM.render(rootApp, document.getElementsByClassName("root")[0]);
