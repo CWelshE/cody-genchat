@@ -1,4 +1,6 @@
 // Primary entrypoint for the application.
+// (The CSS file below is only included for automatic extraction to a
+// Phoenix-specific directory.)
 import "../css/global.css";
 import "phoenix_html";
 
@@ -11,15 +13,15 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import colorScheme from "./constants";
 
+// All other Components that compose our App
+import ChatPanel from "./components/ChatPanel.jsx";
+
 const rootBase = 0;
 const gridTemplates = "1fr 3fr 1fr";
 
 // A 3x3 grid that wraps around all the children elements
 // (The middle is 3x of the outside rows/columns)
-const RootWrapper = () => {
-  return (
-    <div
-      css={css`
+const rootStyles = `
         display: grid;
         grid-template-columns: ${gridTemplates};
         grid-template-rows: ${gridTemplates};
@@ -29,23 +31,16 @@ const RootWrapper = () => {
         padding: ${rootBase};
         font-size: 14px;
         background-color: ${colorScheme.primary};
-      `}
-    >
-    </div>
-  );
-};
+`;
 
 class AppRoot extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
-      <RootWrapper>
-        {this.props.children}
-      </RootWrapper>
+      <div css={css`${rootStyles}`}>
+        <ChatPanel />
+      </div>
     );
   }
 }
 
-ReactDOM.render(<AppRoot/>, document.getElementsByTagName("main")[0]);
+ReactDOM.render(<AppRoot />, document.getElementsByTagName("main")[0]);
