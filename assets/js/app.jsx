@@ -13,8 +13,8 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import colorScheme from "./constants";
 
-// All other Components that compose our App
-import ChatPanel from "./components/ChatPanel.jsx";
+// All other top-level Components that compose our App
+import ChatPanel from "./components/ChatPanel/ChatPanel.jsx";
 
 const rootBase = 0;
 const gridTemplates = "1fr 3fr 1fr";
