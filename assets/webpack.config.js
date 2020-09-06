@@ -1,7 +1,12 @@
 const path = require("path");
 const glob = require("glob");
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
+
+// It turns out this serves a dual purpose - Phoenix by default will use
+// /priv for assets, so this moves and overwrites files at that location
+// with the processed WebPack version(s).
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const TerserPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -36,7 +41,7 @@ module.exports = (env, options) => {
         },
         {
           test: /\.[s]?css$/,
-          use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+          use: [MiniCssExtractPlugin.loader, "css-loader"]
         }
       ]
     },
