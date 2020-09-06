@@ -11,6 +11,9 @@ import React from "react";
 import { css, jsx } from "@emotion/core";
 import colorScheme from "../../constants";
 
+// Panels inside the main view
+import UsersList from "../UsersList/UsersList.jsx";
+
 const chatStyles = `
   display: grid;
   grid-row: 2/3;
@@ -37,7 +40,7 @@ class ChatPanel extends React.Component {
   render() {
     return (
       <div css={css`${chatStyles}`}>
-        <h2>Users List</h2>
+        <UsersList users={this.props.users}/>
         <h2>Chat Panel</h2>
       </div>
     );
