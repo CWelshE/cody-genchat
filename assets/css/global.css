@@ -2,7 +2,10 @@
  * styling a React component; e.g., <html> and <body>.
  */
 html,
-body {
+body,
+main {
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
 }
