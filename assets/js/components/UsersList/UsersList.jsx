@@ -15,13 +15,29 @@ const usersStyles = css`
   flex-direction: column;
   list-style: none;
   color: ${colorScheme.primary};
-  font-family: "Fira Sans Mono";
+  font-family: "Fira Mono";
   padding: 1rem;
   margin: 0;
   background-color: ${colorScheme.tertiary};
 
   &>h3 {
+    padding: 0 0.25rem;
     border-bottom: 5px solid;
+  }
+
+  & li {
+    padding: 0.25rem;
+    border-bottom: 1px dotted rgba(255,255,255,0.5);
+    transition: all 0.2s;
+  }
+
+  & li:hover {
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.5);
+  }
+
+  & li:last-child {
+    border: none;
   }
 `;
 
