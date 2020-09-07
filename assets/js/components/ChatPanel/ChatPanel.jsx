@@ -8,9 +8,11 @@ import React from "react";
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import colorScheme from "../../constants";
+import "fontsource-fira-mono";
 
 // Panels inside the main view
 import UsersList from "../UsersList/UsersList.jsx";
+import MsgList from "../MsgList/MsgList.jsx";
 
 const chatStyles = `
   display: grid;
@@ -31,7 +33,6 @@ class ChatPanel extends React.Component {
       users: [],
       currentUser: {},
       chatHistory: [],
-      privConvos: [],
     };
     this.clickUser = this.clickUser.bind(this);
   }
@@ -45,7 +46,7 @@ class ChatPanel extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state.currentUser);
+    console.log("update:", this.state.currentUser);
   }
 
   render() {
@@ -53,8 +54,10 @@ class ChatPanel extends React.Component {
       <div css={css`${chatStyles}`}>
         <UsersList
           clickUser={this.clickUser}
-          users={this.props.users}/>
-        <h2>Chat Panel</h2>
+          users={this.state.users}/>
+        <MsgList
+          messages={this.state.messages}
+          currentUser={this.state.currentUser}/>
       </div>
     );
   }
