@@ -14,23 +14,27 @@ defmodule Encryption.AES do
     # Random initialization vector
     init_vec = :crypto.strong_rand_bytes(16)
 
+    # Fetch the key and its id using the function chain below
+    encr_key = get_key()
+    key_id = get_key_id()
+
     # TODO: Implement get_key/0 module def
     # Gets the most recent key in a rotation of keys
 
-    # Encrypt the text; return cipher, cipher tag
+    # Encrypt the text; return cipher, cipher tag, typed key_id, vector
     {cipher, tag} =
       :crypto.block_encrypt(
         :aes_gcm,
         encr_key,
         init_vec,
-        {
-          @aad,
-          to_string(text),
-          16
-        }
+        {@aad, to_string(text), 16}
       )
 
-    iv <> tag <> cipher
+    # Concat/return all the data we expect
+    init_vec <>
+      tag <>
+      <<key_id::unsigned-big-integer-32>> <>
+      cipher
   end
 
   # get_key/0
@@ -56,7 +60,6 @@ defmodule Encryption.AES do
   # "Application" is an Erlang library definition, and in this case will
   # allow us to retrieve an encryption key from the app environment
   defp encr_keys do
-    Application.get_env
-    (:encryption, Encryption.AES)[:keys]
+    Application.get_env(:encryption, Encryption.AES)[:keys]
   end
 end
