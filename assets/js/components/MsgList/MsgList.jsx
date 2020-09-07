@@ -21,20 +21,9 @@ const msgStyles = css`
 `;
 
 class MsgList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: this.props.messages || [],
-    };
-  }
-
-  componentDidUpdate() {
-    console.log("MsgList Update", this.state.currentUser);
-  }
-
   render() {
     return (
-      <div css={css` ${msgStyles};`}>
+      <div css={css`${msgStyles};`}>
         <h3>{this.props.currentUser.name}</h3>
       </div>
     );
