@@ -1,7 +1,5 @@
 // Author: Cody Welsh <codyw at protonmail dot com>
 // For a Genity project, with some extra "spice" added
-//
-// The main panel representing the chat room (or private chat session).
 
 // Main React deps
 import React from "react";
@@ -24,23 +22,38 @@ const chatStyles = `
   background-color: ${colorScheme.secondary};
 `;
 
-// import users list;
-// import room view
-
+// The main panel representing the chat room (or private chat session).
+// Contains the interactable elements of the application.
 class ChatPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
+      currentUser: {},
       chatHistory: [],
       privConvos: [],
     };
+    this.clickUser = this.clickUser.bind(this);
+  }
+
+  clickUser(e, user) {
+    console.log("user in:", user);
+    console.log("Before:", this.state.currentUser);
+    this.setState({
+      currentUser: user
+    });
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.currentUser);
   }
 
   render() {
     return (
       <div css={css`${chatStyles}`}>
-        <UsersList users={this.props.users}/>
+        <UsersList
+          clickUser={this.clickUser}
+          users={this.props.users}/>
         <h2>Chat Panel</h2>
       </div>
     );

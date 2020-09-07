@@ -19,13 +19,6 @@ const usersStyles = css`
   background-color: ${colorScheme.tertiary};
 `;
 
-// Maps user objects to list items
-const mappedUsers = (users) => {
-  return users.length
-    ? users.map(user => <li key={user.id}>{user.name}</li>)
-    : null;
-};
-
 // The user list commonly found on the left side of chat-type apps.
 // Users are planned to include:
 // users { username: "name", online: bool, isSecured: bool}
@@ -35,13 +28,30 @@ class UsersList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: this.props.users || []
+      users: this.props.users || [{ name: "Johnny", id: "123123" }]
     };
   }
+
+  getUsers(users) {
+    return users.length
+      ? users.map(user => (
+        <li
+          key={user.id}
+          onClick={(e) => this.props.clickUser(e, user)}>
+          {user.name}
+        </li>
+      ))
+      : null;
+  }
+
   render() {
     return (
-      <div css={css` ${usersStyles};`}>
-        {mappedUsers(this.state.users)}
+      <div
+        css={css`
+          ${usersStyles};
+        `}
+      >
+        {this.getUsers(this.state.users)}
       </div>
     );
   }
