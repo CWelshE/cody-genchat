@@ -16,12 +16,12 @@ defmodule Encryption.AES do
 
     # Fetch the key and its id using the function chain below
     encr_key = get_key()
-    key_id = get_key_id()
+    id = get_id()
 
     # TODO: Implement get_key/0 module def
     # Gets the most recent key in a rotation of keys
 
-    # Encrypt the text; return cipher, cipher tag, typed key_id, vector
+    # Encrypt the text; return cipher, cipher tag, typed id, vector
     {cipher, tag} =
       :crypto.block_encrypt(
         :aes_gcm,
@@ -33,13 +33,13 @@ defmodule Encryption.AES do
     # Concat/return all the data we expect
     init_vec <>
       tag <>
-      <<key_id::unsigned-big-integer-32>> <>
+      <<id::unsigned-big-integer-32>> <>
       cipher
   end
 
   # get_key/0
   defp get_key do
-    get_key_id()
+    get_id()
     |> get_key
   end
 
@@ -52,7 +52,7 @@ defmodule Encryption.AES do
 
   # get_key/1
   # Get an index corresponding to the latest key in our n-key rotation
-  defp get_key_id do
+  defp get_id do
     Enum.count(encr_keys()) - 1
   end
 
@@ -61,5 +61,24 @@ defmodule Encryption.AES do
   # allow us to retrieve an encryption key from the app environment
   defp encr_keys do
     Application.get_env(:encryption, Encryption.AES)[:keys]
+  end
+
+  # decrypt/1
+  # Just performs the reverse operation compared to encrypt/1.
+  def decrypt(cipher) do
+    # If you're wondering what this syntax means, Elixir has an
+    # interesting concept of "pattern matching" that is based on
+    # comparison of each side of a given equation (as in math).
+    # https://elixir-lang.org/getting-started/pattern-matching.html
+    # (<<a::b>> means "represent a in binary format b".)
+    iv_b = <<init_vec::binary-16>>
+    t = <<tag::binary-16>>
+    id = <<id::unsigned-big-integer-32>>
+    c = <<cipher::binary>>
+
+    # Concat and pattern match our data to ciphertext
+    iv_b <> t <> id <> c = cipher
+
+    :crypto.block_decrypt(:aes_gcm, get_key(id), init_vec, {@aad, cipher, tag})
   end
 end
