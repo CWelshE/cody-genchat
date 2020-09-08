@@ -1,20 +1,26 @@
 # Genchat
 
-To start your Phoenix server:
+# Concepts
+- Secure chat on the frontend React-based interface utilizing WebSockets
+    and properly-handled RSA2048 (or better) keys;
+- Secure storage and retrieval of user information before it even hits
+    the database by hashing and encrypting incoming/outgoing data from
+    Ecto
+- Extensible "soft-realtime" messaging that theoretically supports
+    millions of concurrent users (via Phoenix channels)
+- Easily developed styling with `emotion` (a CSS-in-JS library)
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+# TODO
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+- Hook up the frontend encryption;
+- Add more coverage for cryptography functions;
+- `docker-compose` custom container environment for quick deployment
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+As of right now, you can run the (incomplete) web server like this:
 
-## Learn more
+* Install dependencies with `mix deps.get`
+* Create and migrate your database with `mix ecto.setup`
+* Install Node.js dependencies with `npm install` inside the `assets` directory
+* Start Phoenix endpoint with `mix phx.server`
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+(Docker containerization will make this easier, of course!)
