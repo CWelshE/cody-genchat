@@ -60,7 +60,7 @@ defmodule Encryption.AES do
   # "Application" is an Erlang library definition, and in this case will
   # allow us to retrieve an encryption key from the app environment
   defp encr_keys do
-    Application.get_env(:encryption, Encryption.AES)[:keys]
+    Application.get_env(:genchat, Encryption.AES)[:keys]
   end
 
   # decrypt/1
@@ -71,13 +71,9 @@ defmodule Encryption.AES do
     # comparison of each side of a given equation (as in math).
     # https://elixir-lang.org/getting-started/pattern-matching.html
     # (<<a::b>> means "represent a in binary format b".)
-    iv_b = <<init_vec::binary-16>>
-    t = <<tag::binary-16>>
-    id = <<id::unsigned-big-integer-32>>
-    c = <<cipher::binary>>
 
     # Concat and pattern match our data to ciphertext
-    iv_b <> t <> id <> c = cipher
+    <<init_vec::binary-16, tag::binary-16, id::unsigned-big-integer-32, cipher::binary>> = cipher
 
     :crypto.block_decrypt(:aes_gcm, get_key(id), init_vec, {@aad, cipher, tag})
   end

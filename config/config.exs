@@ -28,4 +28,27 @@ config :phoenix, :json_library, Jason
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
+
+# Parse any environment vars in .env; set them in the app context
+try do
+  File.stream!("./.env")
+  |> Stream.map(&String.trim_trailing/1)
+  |> Enum.each(fn line ->
+    line
+    |> String.split("=", parts: 2)
+    |> Enum.reduce(fn value, key ->
+      System.put_env(key, value)
+    end)
+  end)
+rescue
+  _ -> IO.puts("no .env file found!")
+end
+
+config :genchat, Encryption.AES,
+  keys:
+    System.get_env("ENCRYPTION_KEYS")
+    |> String.replace("'", "")
+    |> String.split(",")
+    |> Enum.map(fn key -> :base64.decode(key) end)
+
 import_config "#{Mix.env()}.exs"
