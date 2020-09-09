@@ -1,10 +1,10 @@
-defmodule Encryption.AESTest do
+defmodule Genchat.AESTest do
   use ExUnit.Case
-  alias Encryption.AES
+  alias Genchat.AES
 
   @same "this is the same string"
   @same_cryp @same |> AES.encrypt()
-  @keys Application.get_env(:genchat, Encryption.AES)[:keys]
+  @keys Application.get_env(:genchat, Genchat.AES)[:keys]
 
   test "encrypt/1 includes initialization vector in return values" do
     <<init_vec::binary-16, cipher::binary>> = AES.encrypt("test string")
@@ -24,11 +24,11 @@ defmodule Encryption.AESTest do
 
   test "decrypt/1 can decipher encrypt/1 after appending new keys" do
     # Add a random key generated from Erlang
-    Application.put_env(:genchat, Encryption.AES, keys: @keys ++ [:crypto.strong_rand_bytes(32)])
+    Application.put_env(:genchat, Genchat.AES, keys: @keys ++ [:crypto.strong_rand_bytes(32)])
 
     assert @same == @same_cryp |> AES.decrypt()
 
     # Restore the pre-test state
-    Application.put_env(:genchat, Encryption.AES, keys: @keys)
+    Application.put_env(:genchat, Genchat.AES, keys: @keys)
   end
 end
