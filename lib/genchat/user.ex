@@ -1,10 +1,11 @@
 defmodule Genchat.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Genchat.{HashField, User}
 
   schema "users" do
     field :email, :binary
-    field :email_hash, :binary
+    field :email_hash, HashField
     field :name, :binary
     field :password_hash, :binary
 
@@ -12,9 +13,9 @@ defmodule Genchat.User do
   end
 
   @doc false
-  def changeset(user, attrs) do
+  def changeset(%User{} = user, attrs \\ %{}) do
     user
-    |> cast(attrs, [:email, :email_hash, :name, :password_hash])
-    |> validate_required([:email, :email_hash, :name, :password_hash])
+    |> cast(attrs, [:name, :email])
+    |> validate_required([:email])
   end
 end
