@@ -5,7 +5,7 @@
 # This module definition is essentially an amalgamation of various
 # resources on encryption within Elixir/Phoenix.
 
-defmodule Encryption.AES do
+defmodule Genchat.AES do
   @aad "AES256GCM"
 
   # Base encryption function for text
@@ -60,7 +60,7 @@ defmodule Encryption.AES do
   # "Application" is an Erlang library definition, and in this case will
   # allow us to retrieve an encryption key from the app environment
   defp encr_keys do
-    Application.get_env(:genchat, Encryption.AES)[:keys]
+    Application.get_env(:genchat, Genchat.AES)[:keys]
   end
 
   # decrypt/1

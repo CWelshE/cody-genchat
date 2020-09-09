@@ -44,7 +44,7 @@ rescue
   _ -> IO.puts("no .env file found!")
 end
 
-config :genchat, Encryption.AES,
+config :genchat, Genchat.AES,
   keys:
     System.get_env("ENCRYPTION_KEYS")
     |> String.replace("'", "")
