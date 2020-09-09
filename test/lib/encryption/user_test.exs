@@ -17,5 +17,10 @@ defmodule Genchat.UserTest do
     test "New user emails create new email hashes", %{user: user} do
       assert user.email == user.email_hash
     end
+
+    test "The hashed email is equivalent to the unhashed email", %{user: user} do
+      user_db = User |> Repo.one!()
+      assert user_db.email_hash == Genchat.HashField.hash(user.email)
+    end
   end
 end
