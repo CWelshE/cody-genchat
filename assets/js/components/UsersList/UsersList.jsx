@@ -60,13 +60,6 @@ const sampleUsers = [
 // Depending on how difficult it is, I may implement a "Secure this
 // conversation" button, or just have it occur by default.
 class UsersList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: this.props.users || sampleUsers
-    };
-  }
-
   getUsers(users) {
     return users.length
       ? users.map(user => (
@@ -81,13 +74,12 @@ class UsersList extends React.Component {
 
   render() {
     return (
-      <div
-        css={css`
-          ${usersStyles};
-        `}
-      >
+      <div css={css`${usersStyles};`}>
         <h3>Users</h3>
-        {this.getUsers(this.state.users)}
+        {this.getUsers(
+          this.props.users ?
+            this.props.users : sampleUsers
+        )}
       </div>
     );
   }

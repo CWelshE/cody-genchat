@@ -38,8 +38,6 @@ class ChatPanel extends React.Component {
   }
 
   clickUser(e, user) {
-    console.log("user in:", user);
-    console.log("Before:", this.state.currentUser);
     this.setState({
       currentUser: user
     });
