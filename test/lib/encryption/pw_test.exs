@@ -10,4 +10,12 @@ defmodule Genchat.PasswordFieldTest do
   test "passwords are correctly hashed by Argon2" do
     assert Argon2.verify_pass(@pw, @pw_hash)
   end
+
+  test "passwords are verified by PasswordField" do
+    assert PasswordField.verify_pw(@pw, @pw_hash)
+  end
+
+  test "password verification fails in expected contexts" do
+    assert !PasswordField.verify_pw("notcorrecthash", @pw_hash)
+  end
 end
