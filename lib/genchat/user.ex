@@ -1,13 +1,13 @@
 defmodule Genchat.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Genchat.{HashField, User}
+  alias Genchat.{PasswordField, HashField, User}
 
   schema "users" do
     field :email, :binary
     field :email_hash, HashField
     field :name, :binary
-    field :password_hash, :binary
+    field :password_hash, PasswordField
 
     timestamps()
   end
