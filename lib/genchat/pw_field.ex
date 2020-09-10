@@ -2,6 +2,7 @@
 # algorithm
 
 defmodule Genchat.PasswordField do
+  @behaviour Ecto.Type
   # Passwords are binary
   def type, do: :binary
 
@@ -21,7 +22,10 @@ defmodule Genchat.PasswordField do
   end
 
   # Unused, but still required to be defined
-  def embed(_), do: :self
+  def embed_as(_), do: :self
+
+  # Compare changeset to DB state
+  def equal?(x, y), do: x == y
 
   # Invoke Argon2 to hash the password
   def hash_pw(val) do
