@@ -4,10 +4,10 @@
 defmodule Genchat.PasswordFieldTest do
   use ExUnit.Case
   alias Genchat.PasswordField
+  @pw "correct horse battery staple"
+  @pw_hash PasswordField.hash_pw(@pw)
 
   test "passwords are correctly hashed by Argon2" do
-    pw = "correct horse battery staple"
-    pw_hash = PasswordField.hash_pw(pw)
-    assert Argon2.verify_pass(pw, pw_hash)
+    assert Argon2.verify_pass(@pw, @pw_hash)
   end
 end
