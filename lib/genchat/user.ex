@@ -21,6 +21,7 @@ defmodule Genchat.User do
     |> unique_constraint(:email_hash)
   end
 
+  # If email exists in changeset, append hashed email addr
   defp create_email_hash(changeset) do
     if Map.has_key?(changeset.changes, :email) do
       changeset |> put_change(:email_hash, changeset.changes.email)
