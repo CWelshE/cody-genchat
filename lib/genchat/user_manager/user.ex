@@ -1,4 +1,4 @@
-defmodule Genchat.User do
+defmodule Genchat.UserManager.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Genchat.{EncryptedField, PasswordField, HashField, User}
