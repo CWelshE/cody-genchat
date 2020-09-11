@@ -7,7 +7,6 @@ defmodule GenChat.EncryptedFieldTest do
 
   @u_name "Some Guy"
   @u_name_encr EncryptedField.dump(@u_name)
-  @u_email "some@guy.com"
 
   @u_sample %{
     name: "Cody Welsh",
@@ -30,8 +29,10 @@ defmodule GenChat.EncryptedFieldTest do
       assert user_db.password != EncryptedField.dump(user.password)
     end
 
-    test "arbitrary encrypted text can be decrypted", %{user: user} do
-      assert @u_sample.name == EncryptedField.load(user.name)
+    test "arbitrary encrypted text can be decrypted" do
+      {:ok, encr_name} = EncryptedField.dump(@u_sample.name)
+      {:ok, decr_name} = EncryptedField.load(encr_name)
+      assert decr_name == @u_sample.name
     end
   end
 end
