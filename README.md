@@ -13,8 +13,10 @@
 # TODO
 
 - Hook up the frontend encryption;
-- Add more coverage for cryptography functions;
+- ~~Add more coverage for cryptography functions;~~
 - `docker-compose` custom container environment for quick deployment
+- Abstract Phoenix socket JavaScript implementation into a React
+    component for easy composability
 
 As of right now, you can run the (incomplete) web server like this:
 
