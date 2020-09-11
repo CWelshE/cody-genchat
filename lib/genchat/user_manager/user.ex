@@ -1,7 +1,7 @@
 defmodule Genchat.UserManager.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Genchat.{EncryptedField, PasswordField, HashField, User}
+  alias Genchat.{EncryptedField, PasswordField, HashField, UserManager.User}
 
   schema "users" do
     field :email, EncryptedField
@@ -16,9 +16,10 @@ defmodule Genchat.UserManager.User do
   @doc false
   def changeset(%User{} = user, attrs \\ %{}) do
     user
-    |> cast(attrs, [:name, :email])
-    |> validate_required([:email])
+    |> cast(attrs, [:name, :email, :password])
+    |> validate_required([:name, :email, :password])
     |> create_email_hash
+    |> create_pw_hash
     |> unique_constraint(:email_hash)
   end
 
@@ -28,6 +29,13 @@ defmodule Genchat.UserManager.User do
       changeset |> put_change(:email_hash, changeset.changes.email)
     else
       changeset
+    end
+  end
+
+  # If password exists in changeset, store hashed password
+  defp create_pw_hash(changeset) do
+    if Map.has_key?(changeset.changes, :password) do
+      changeset |> put_change(:password_hash, changeset.changes.password)
     end
   end
 end
