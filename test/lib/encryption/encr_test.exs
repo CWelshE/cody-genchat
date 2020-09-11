@@ -3,7 +3,7 @@
 defmodule GenChat.EncryptedFieldTest do
   use ExUnit.Case
   use Genchat.DataCase
-  alias Genchat.{EncryptedField, User, Repo}
+  alias Genchat.{EncryptedField, UserManager.User, Repo}
 
   @u_name "Some Guy"
   @u_name_encr EncryptedField.dump(@u_name)

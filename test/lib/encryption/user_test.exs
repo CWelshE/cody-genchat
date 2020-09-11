@@ -1,6 +1,6 @@
-defmodule Genchat.UserTest do
+defmodule Genchat.UserManager.UserTest do
   use Genchat.DataCase
-  alias Genchat.{User, Repo}
+  alias Genchat.{UserManager.User, Repo}
 
   @valid_req %{
     name: "Cody Welsh",
