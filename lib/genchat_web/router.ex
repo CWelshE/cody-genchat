@@ -19,10 +19,14 @@ defmodule GenchatWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", GenchatWeb do
-  #   pipe_through :api
-  # end
+  # Define /api and /api/users as API endpoints
+  scope "/api", GenchatWeb do
+    pipe_through :api
+
+    scope "/users" do
+      post("/accounts", AccountController, :create)
+    end
+  end
 
   # Enables LiveDashboard only for development
   #
