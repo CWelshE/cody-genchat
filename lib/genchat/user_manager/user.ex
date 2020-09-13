@@ -20,7 +20,7 @@ defmodule Genchat.UserManager.User do
     |> validate_required([:name, :email, :password])
     |> create_email_hash
     |> create_pw_hash
-    |> unique_constraint(:email_hash)
+    |> unique_constraint(:email_hash, :password_hash)
   end
 
   # If email exists in changeset, append hashed email addr
@@ -33,6 +33,8 @@ defmodule Genchat.UserManager.User do
   end
 
   # If password exists in changeset, store hashed password
+  # (Would like to find a way to abstract these defs into one, if
+  # possible, but not sure how to do that yet)
   defp create_pw_hash(changeset) do
     if Map.has_key?(changeset.changes, :password) do
       changeset |> put_change(:password_hash, changeset.changes.password)
