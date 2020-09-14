@@ -11,5 +11,6 @@ defmodule Genchat.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
+    create(unique_index(:users, [:email_hash]))
   end
 end
