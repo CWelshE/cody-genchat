@@ -18,6 +18,10 @@ config :genchat, GenchatWeb.Endpoint,
   pubsub_server: Genchat.PubSub,
   live_view: [signing_salt: "2J1LmwkJ"]
 
+config :genchat, Genchat.UserManager.Guardian,
+  issuer: "genchat",
+  secret_key: "s2ojYlBbeV6yFKd9GgwKWfyfVw9H5pk8q5lbLLtJh7jkClGF8u6vzbWkn60K/+co"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
