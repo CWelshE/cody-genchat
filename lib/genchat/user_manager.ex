@@ -50,9 +50,8 @@ defmodule Genchat.UserManager do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
+    User.changeset(%User{}, attrs)
+    |> Repo.insert!()
   end
 
   @doc """
@@ -67,10 +66,9 @@ defmodule Genchat.UserManager do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_user(%User{} = user, attrs) do
-    user
-    |> User.changeset(attrs)
-    |> Repo.update()
+  def update_user(user, attrs) do
+    User.changeset(user, attrs)
+    |> Repo.update!()
   end
 
   @doc """
